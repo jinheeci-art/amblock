@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Amblox</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ───── 로그인 / 회원가입 ───── -->
+  <section id="auth" class="screen">
+    <div class="auth-box">
+      <h1 class="logo">AMBLOX</h1>
+      <p class="tagline">영어 공부하면서 친구랑 노는 게임 세상 🌏</p>
+      <div class="tabs">
+        <button class="tab active" data-tab="login">로그인</button>
+        <button class="tab" data-tab="signup">회원가입</button>
+      </div>
+      <form id="loginForm">
+        <input name="id" placeholder="아이디" autocomplete="username" required>
+        <input name="password" type="password" placeholder="비밀번호" autocomplete="current-password" required>
+        <button class="btn big green" type="submit">로그인</button>
+      </form>
+      <form id="signupForm" hidden>
+        <input name="id" placeholder="아이디 (영어/숫자 4~16글자)" autocomplete="username" required>
+        <input name="nick" placeholder="닉네임 (게임에서 보이는 이름)" maxlength="10" required>
+        <input name="password" type="password" placeholder="비밀번호 (4글자 이상)" autocomplete="new-password" required>
+        <input name="password2" type="password" placeholder="비밀번호 확인" autocomplete="new-password" required>
+        <button class="btn big blue" type="submit">회원가입</button>
+      </form>
+      <p id="authMsg" class="err"></p>
+    </div>
+  </section>
+
+  <!-- ───── Amblox 메인 화면 ───── -->
+  <section id="lobby" class="screen" hidden>
+    <header class="topbar">
+      <div class="logo small">AMBLOX</div>
+      <div class="coins" title="Ambox: 영어 문제 10개 맞히면 1개!">
+        <span class="ambox-icon">A</span><b id="amboxCount">0</b>
+        <div class="progress"><div id="quizBar"></div></div>
+        <small id="quizProg">0/10</small>
+      </div>
+      <button class="btn yellow" id="btnQuiz">📚 영어 퀴즈 풀고 Ambox 받기</button>
+      <button class="btn" id="btnShop">🛒 상점</button>
+      <button class="btn" id="btnDex">🎒 내 포켓몬</button>
+      <div class="me">
+        <div class="avatar" id="myAvatar" title="클릭하면 색이 바뀌어요"></div>
+        <div><b id="myNick"></b><br><small id="myId"></small></div>
+        <button class="btn small" id="btnLogout">로그아웃</button>
+      </div>
+    </header>
+    <main class="lobby-main">
+      <div class="games-wrap">
+        <h2>🎮 게임</h2>
+        <div class="games" id="games"></div>
+      </div>
+      <aside class="friends">
+        <h2>👫 친구</h2>
+        <form id="friendForm" class="row">
+          <input name="id" placeholder="친구 아이디로 추가" required>
+          <button class="btn small green">추가</button>
+        </form>
+        <div id="friendReqs"></div>
+        <div id="friendList"></div>
+      </aside>
+    </main>
+  </section>
+
+  <!-- ───── 게임 화면 ───── -->
+  <section id="game" class="screen" hidden>
+    <canvas id="canvas"></canvas>
+    <div id="hud"></div>
+    <button class="btn small exit" id="btnExit">⬅ 나가기</button>
+  </section>
+
+  <!-- ───── 영어 퀴즈 창 ───── -->
+  <div id="quiz" class="modal" hidden>
+    <div class="quiz-card">
+      <div class="quiz-kind" id="quizKind"></div>
+      <div class="quiz-text" id="quizText"></div>
+      <div class="quiz-choices" id="quizChoices"></div>
+      <div class="quiz-foot"><span id="quizInfo"></span><button class="btn small" id="quizClose">닫기</button></div>
+    </div>
+  </div>
+
+  <!-- ───── 상점 / 포켓몬 도감 ───── -->
+  <div id="panel" class="modal" hidden>
+    <div class="panel-card">
+      <button class="btn small close" id="panelClose">✕</button>
+      <div id="panelBody"></div>
+    </div>
+  </div>
+
+  <div id="toasts"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="shared/defs.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/games/battle.js"></script>
+  <script src="js/games/tower.js"></script>
+  <script src="js/games/forest.js"></script>
+  <script src="js/games/tsunami.js"></script>
+  <script src="js/games/rivals.js"></script>
+</body>
+</html>
